@@ -1,0 +1,1 @@
+enum DioManagerPath { weather, turkey }

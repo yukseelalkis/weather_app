@@ -1,0 +1,15 @@
+enum ImagePath {
+  clearDay,
+  clearNight,
+  fewCloudsDay,
+  fewCloudsNight,
+  scatteredClouds,
+  brokenCloudsDay,
+  brokenCloudsNight,
+  showerRain,
+  rainDay,
+  rainNight,
+  thunderstorm,
+  snow,
+  mist,
+}
