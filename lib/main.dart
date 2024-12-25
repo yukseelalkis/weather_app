@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:package_weather/product/global/on_generate_route.dart';
-import 'package:package_weather/product/init/theme/ligth_theme.dart';
-import 'package:package_weather/product/navigate/navigate_manager.dart';
-import 'package:package_weather/product/navigator_routes/navigator_routes.dart';
+import 'package:package_weather/product/global/theme_notifider.dart';
+import 'package:package_weather/product/init/theme/ligth_theme/ligth_theme.dart';
+import 'package:package_weather/product/navigation/navigate/navigate_manager.dart';
+import 'package:package_weather/product/navigation/navigator_routes/navigator_routes.dart';
+import 'package:provider/provider.dart';
+
+// void main() {
+//   runApp(MyApp());
+// }
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeNotifer()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -16,7 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: lightTheme.theme,
+      theme: context.watch<ThemeNotifer>().currentTheme,
       initialRoute: '/',
       routes: NavigatorRoutes().items,
       onGenerateRoute: onGenerateRoute,

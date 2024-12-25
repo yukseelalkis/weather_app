@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:package_weather/product/utitility/constant/app_style.dart/app_style.dart';
-import 'package:package_weather/product/utitility/constant/padding/project_padding.dart';
-import 'package:package_weather/product/utitility/constant/project_color/color_items.dart';
-import 'package:package_weather/product/utitility/constant/widget/appbar_logo_widget.dart';
-import 'package:package_weather/feature/alert_dialog/view/show_dialog.dart';
-import 'package:package_weather/feature/weather_card/view/weather_card_widget.dart';
-import 'package:package_weather/feature/forecast_widget.dart/view/forecast_widget.dart';
+import 'package:lottie/lottie.dart';
+import 'package:package_weather/feature/mixin/weather_view_mixin.dart';
+import 'package:package_weather/feature/view/widget/drop_down_widget/view/drop_down_widget.dart';
+import 'package:package_weather/product/global/theme_notifider.dart';
+import 'package:package_weather/product/utilitiy/app_style.dart/app_style.dart';
+import 'package:package_weather/product/utilitiy/constants/padding/project_padding.dart';
+import 'package:package_weather/product/init/theme/project_color/color_items.dart';
+import 'package:package_weather/feature/view/widget/appbar_logo_widget.dart';
+import 'package:package_weather/feature/view/widget/weather_card_widget/view/weather_card_widget.dart';
+import 'package:package_weather/feature/view/widget/forecast_widget.dart/view/forecast_widget.dart';
+import 'package:provider/provider.dart';
+// part
+part '../part/weather_view_part_of.dart';
 
 class WeatherView extends StatefulWidget {
   const WeatherView({super.key});
@@ -14,52 +20,49 @@ class WeatherView extends StatefulWidget {
   State<WeatherView> createState() => _WeatherViewState();
 }
 
-class _WeatherViewState extends State<WeatherView> {
+class _WeatherViewState extends State<WeatherView>
+    with WeatherViewMixin, TickerProviderStateMixin {
   final String _logoName = 'logo_weather';
+  static const String _lottieButton = 'assets/lottie/lottie_theme_change.json';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // BUNU BELKIDE PRIVATE SEKLINDE YAZABILIRIZ
         title: LogoAppbarWidget(
           name: _logoName,
         ),
-        actions: [
-          IconButton(
-              onPressed: () async {
-                final selectedCity = await showDialog(
-                  context: context,
-                  builder: (context) => const ShowDialogWidget(),
-                );
-                if (selectedCity != null) {
-                  ("Seçilen şehir: ${selectedCity.name}");
-                }
-              },
-              icon: const Icon(Icons.search_outlined)),
+        actions: const [
+          ThemeToggleButton(lottiePath: _lottieButton),
         ],
       ),
       body: Container(
-        decoration: AppStyle.gradientBoxDecoration,
+        decoration: AppStyle.getGradientBoxDecoration(!isLigth),
         child: Center(
           child: Column(
             children: [
-              // SEHIR ISMI SERVISTEN DONECEK
+              CitiesDropdownWidget(
+                onCitySelected: updateSelectedCity,
+              ),
               Padding(
                 padding: const PagePadding.all(),
-                // bloc ile haberlesme yapacazzz
-                child: Text('Bodrum',
-                    style: Theme.of(context).textTheme.displayMedium),
+                child: Text(selectedCity,
+                    style: Theme.of(context).textTheme.displayLarge),
               ),
-              const Padding(
-                padding: PagePadding.all(),
-                child: WeatherCardWidget(),
+              Padding(
+                padding: const PagePadding.all(),
+                child: WeatherCardWidget(
+                  selectedCity: selectedCity,
+                ),
               ),
               const Divider(
-                color: ProjectItemColors.blackColor,
+                color: ProjectItemColors.textColor,
                 thickness: AppStyle.thihknes,
               ),
-              const Expanded(child: ForeCastWidget()),
+              Expanded(
+                  child: ForeCastWidget(
+                selectedCity: selectedCity,
+              )),
             ],
           ),
         ),
@@ -67,3 +70,4 @@ class _WeatherViewState extends State<WeatherView> {
     );
   }
 }
+

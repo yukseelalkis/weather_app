@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:package_weather/feature/splash/view/splash_view.dart';
+import 'package:package_weather/feature/view/splash_view.dart';
 import 'package:package_weather/feature/view/weather_view.dart';
 
 Route<dynamic>? onGenerateRoute(RouteSettings settings) {
