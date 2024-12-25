@@ -6,10 +6,6 @@ import 'package:package_weather/product/navigation/navigate/navigate_manager.dar
 import 'package:package_weather/product/navigation/navigator_routes/navigator_routes.dart';
 import 'package:provider/provider.dart';
 
-// void main() {
-//   runApp(MyApp());
-// }
-
 void main() {
   runApp(
     MultiProvider(

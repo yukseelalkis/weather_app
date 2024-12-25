@@ -10,8 +10,11 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => const WeatherView());
     default:
       return MaterialPageRoute(
-          builder: (context) => Scaffold(
-                body: Center(child: Text('Sayfa bulunamadi: ${settings.name}')),
-              ));
+        builder: (context) => Scaffold(
+          body: Center(
+            child: Text('Sayfa bulunamadi: ${settings.name}'),
+          ),
+        ),
+      );
   }
 }

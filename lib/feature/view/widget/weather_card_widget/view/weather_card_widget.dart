@@ -18,8 +18,7 @@ class WeatherCardWidget extends StatefulWidget {
   State<WeatherCardWidget> createState() => _WeatherCardWidget();
 }
 
-class _WeatherCardWidget extends State<WeatherCardWidget>
-    with WeatherCardMixin {
+class _WeatherCardWidget extends State<WeatherCardWidget> with WeatherCardMixin {
   @override
   Widget build(BuildContext context) {
     return weatherItem == null
@@ -27,10 +26,11 @@ class _WeatherCardWidget extends State<WeatherCardWidget>
         : Stack(
             clipBehavior: Clip.none,
             children: [
-              Container(
-                  width: AppStyle.projectDailyCardWidth,
-                  height: AppStyle.projectDailyCardHeigth,
-                  decoration: AppStyle.procetBoxDeceration),
+              const SizedBox(
+                width: AppStyle.projectDailyCardWidth,
+                height: AppStyle.projectDailyCardHeigth,
+                child: Card(),
+              ),
               Positioned(
                   top: -50,
                   left: -20,

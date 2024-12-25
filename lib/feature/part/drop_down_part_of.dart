@@ -14,18 +14,19 @@ class _DropdownHeaderWidget extends StatelessWidget {
       child: Container(
         padding: const PagePadding.symetric(),
         decoration: AppStyle.getDropdownBoxDecoration(
-            context.watch<ThemeNotifer>().isLighTheme),
+          context.watch<ThemeNotifer>().isLighTheme,
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              selectedCity ?? ProjectStringItems.selectCity,
-              style: const TextStyle(
-                fontSize: AppStyle.textBodyMediumSize,
-                color: ProjectItemColors.textColor, // Daha okunaklı renk
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            Text(selectedCity ?? ProjectStringItems.selectCity,
+                style: Theme.of(context).textTheme.bodyMedium
+                // const TextStyle(
+                //   fontSize: AppStyle.textBodyMediumSize,
+                //   color: ProjectItemColors.textColor, // Daha okunaklı renk
+                //   fontWeight: FontWeight.w500,
+                // ),
+                ),
             const Icon(
               Icons.arrow_drop_down,
               color: ProjectItemColors.textColor, // İkon için de renk ayarı
@@ -53,8 +54,8 @@ class _DropdownListWidget extends StatelessWidget {
     return Container(
       margin: const PagePadding.top(),
       padding: const PagePadding.symetric(),
-      decoration: AppStyle.getGradientBoxDecoration(
-          context.watch<ThemeNotifer>().isLighTheme),
+      decoration:
+          AppStyle.getGradientBoxDecoration(context.watch<ThemeNotifer>().isLighTheme),
       height: AppStyle.dropdownContainer,
       child: cities == null
           ? const Center(
@@ -75,11 +76,7 @@ class _DropdownListWidget extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Text(
                       city.name ?? ProjectStringItems.unknow,
-                      style: const TextStyle(
-                        fontSize: AppStyle.textBodyMediumSize,
-                        color: ProjectItemColors.textColor,
-                        fontWeight: FontWeight.w400,
-                      ),
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),
                 );
