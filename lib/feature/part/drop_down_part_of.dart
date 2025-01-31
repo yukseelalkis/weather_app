@@ -1,32 +1,71 @@
-part of '../view/widget/drop_down_widget/view/drop_down_widget.dart';
+part of '../view/widget/drop_down_widget/drop_down_widget.dart';
 
 class _DropdownHeaderWidget extends StatelessWidget {
-  const _DropdownHeaderWidget({
+  _DropdownHeaderWidget({
     required this.selectedCity,
   });
 
   final String? selectedCity;
 
+  // BoxDecoration boxDecorationDark = BoxDecoration(
+  //   // arka plan theme ayari yapilacak
+  //   color: Colors.black, // Arka planı siyah yap
+  //   borderRadius: BorderRadius.circular(12), // Kenarları yuvarlat
+  //   border: Border.all(color: Colors.white, width: 1), // Beyaz çerçeve
+  //   boxShadow: [
+  //     BoxShadow(
+  //       color: Colors.white.withOpacity(0.1), // Hafif gölge efekti
+  //       spreadRadius: 1,
+  //       blurRadius: 8,
+  //     ),
+  //   ],
+  // );
+  // BoxDecoration boxDecorationLigth = BoxDecoration(
+  //   // arka plan theme ayari yapilacak
+  //   color: Colors.white, // Arka planı siyah yap
+  //   borderRadius: BorderRadius.circular(12), // Kenarları yuvarlat
+  //   border: Border.all(color: Colors.black, width: 1), // Beyaz çerçeve
+  //   boxShadow: [
+  //     BoxShadow(
+  //       color: Colors.white.withOpacity(0.1), // Hafif gölge efekti
+  //       spreadRadius: 1,
+  //       blurRadius: 8,
+  //     ),
+  //   ],
+  // );
+
+  ///
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const PagePadding.halfAll(),
+      padding: const PagePadding.symetric(),
       child: Container(
+        width: 200,
         padding: const PagePadding.symetric(),
-        decoration: AppStyle.getDropdownBoxDecoration(
-          context.watch<ThemeNotifer>().isLighTheme,
+        decoration: BoxDecoration(
+          // arka plan theme ayari yapilacak
+          color: context.watch<ThemeNotifer>().isLighTheme
+              ? Colors.black
+              : Colors.white, // Arka planı siyah yap
+          borderRadius: BorderRadius.circular(12), // Kenarları yuvarlat
+          border: Border.all(color: Colors.black, width: 1), // Beyaz çerçeve
+          boxShadow: [
+            BoxShadow(
+              color: Colors.white.withOpacity(0.1), // Hafif gölge efekti
+              spreadRadius: 1,
+              blurRadius: 8,
+            ),
+          ],
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(selectedCity ?? ProjectStringItems.selectCity,
-                style: Theme.of(context).textTheme.bodyMedium
-                // const TextStyle(
-                //   fontSize: AppStyle.textBodyMediumSize,
-                //   color: ProjectItemColors.textColor, // Daha okunaklı renk
-                //   fontWeight: FontWeight.w500,
-                // ),
-                ),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: context.watch<ThemeNotifer>().isLighTheme
+                          ? Colors.white
+                          : Colors.black,
+                    )),
             const Icon(
               Icons.arrow_drop_down,
               color: ProjectItemColors.textColor, // İkon için de renk ayarı
@@ -52,10 +91,22 @@ class _DropdownListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const PagePadding.top(),
+      width: 200,
       padding: const PagePadding.symetric(),
-      decoration:
-          AppStyle.getGradientBoxDecoration(context.watch<ThemeNotifer>().isLighTheme),
+      decoration: BoxDecoration(
+        color: context.watch<ThemeNotifer>().isLighTheme
+            ? Colors.black
+            : Colors.white, //, // Arka planı siyah yap
+        borderRadius: BorderRadius.circular(12), // Kenarları yuvarlat
+        border: Border.all(color: Colors.white, width: 1), // Beyaz çerçeve
+        boxShadow: [
+          BoxShadow(
+            color: Colors.white.withOpacity(0.1), // Hafif gölge efekti
+            spreadRadius: 1,
+            blurRadius: 8,
+          ),
+        ],
+      ),
       height: AppStyle.dropdownContainer,
       child: cities == null
           ? const Center(
@@ -76,7 +127,11 @@ class _DropdownListWidget extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Text(
                       city.name ?? ProjectStringItems.unknow,
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: context.watch<ThemeNotifer>().isLighTheme
+                                ? Colors.white
+                                : Colors.black,
+                          ),
                     ),
                   ),
                 );

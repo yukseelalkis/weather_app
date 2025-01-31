@@ -1,4 +1,4 @@
-part of '../view/widget/weather_card_widget/view/weather_card_widget.dart';
+part of '../view/widget/weather_card_widget/weather_card_widget.dart';
 
 class _WeatherDetailsRow extends StatelessWidget {
   const _WeatherDetailsRow({

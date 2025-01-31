@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:package_weather/feature/model/weather_model.dart';
-import 'package:package_weather/feature/view/widget/weather_card_widget/view/weather_card_widget.dart';
+import 'package:package_weather/feature/view/widget/weather_card_widget/weather_card_widget.dart';
 import 'package:package_weather/product/service/dio_network_manager.dart';
 import 'package:package_weather/product/service/weather_service.dart';
 import 'package:package_weather/product/utilitiy/enum/dio_manager_enum.dart';

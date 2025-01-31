@@ -50,6 +50,7 @@
 //   }
 // }
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:package_weather/product/utilitiy/app_style.dart/app_style.dart';
 import 'package:package_weather/product/init/theme/project_color/color_items.dart';
@@ -108,6 +109,146 @@ class LigthTheme {
       iconTheme: const IconThemeData(
         color: ProjectItemColors.accentColor,
         size: 40,
+      ),
+    );
+  }
+}
+
+/// Custom Theme
+class CustomTheme {
+  late ThemeData customDarkTheme;
+  late ThemeData customLigthTheme;
+  CustomTheme() {
+    customDarkTheme = ThemeData(
+      brightness: Brightness.light,
+      scaffoldBackgroundColor: Colors.black,
+      appBarTheme: const AppBarTheme(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          //AppBar'ın üstünde bulunan durum çubuğunun (status bar) ikonlarının ve yazılarının rengini kontrol etmeye yarar.
+          systemOverlayStyle:
+              SystemUiOverlayStyle(statusBarBrightness: Brightness.dark)),
+
+      // **Dropdown Arka Planını Siyah Yap**
+      dropdownMenuTheme: DropdownMenuThemeData(
+        menuStyle: MenuStyle(
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12), // Kenarları yuvarlat
+            ),
+          ),
+        ),
+      ),
+
+      // Uygulamanın genelinde geçerli olacak yazı stilleri
+      textTheme: const TextTheme(
+        // Büyük başlık (Örnek: '22°C' gibi)
+        headlineLarge: TextStyle(
+          fontSize: 55,
+          color: Colors.black,
+          fontWeight: FontWeight.w600,
+        ),
+        // Orta başlık (Örnek: 'THUNDERSTORM' gibi)
+        headlineMedium: TextStyle(
+          fontSize: 25,
+          color: Colors.black,
+          fontWeight: FontWeight.w500,
+        ),
+        // Alt başlık (Örnek: 'GoodMorning' gibi)
+        headlineSmall: TextStyle(
+          fontSize: 64,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+        // Açıklama metinleri (Örnek: 'Friday 16- 09.41am' gibi)
+        titleMedium: TextStyle(
+          fontSize: 16,
+          color: Colors.white,
+          fontWeight: FontWeight.w300,
+        ),
+        // Temel ince metin (Örnek: 'Aix-en-Provence' gibi)
+        bodyLarge: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w300,
+        ),
+        // Temel kalın metin
+        bodyMedium: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
+        ),
+
+        // Küçük ek açıklama metinleri (Örnek: 'Sunrise', 'Sunset' vb.)
+        bodySmall: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w300,
+        ),
+      ),
+    );
+
+    ////****Ligth Theme */
+    customLigthTheme = ThemeData(
+      brightness: Brightness.light,
+      scaffoldBackgroundColor: Colors.white,
+      appBarTheme: const AppBarTheme(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          //AppBar'ın üstünde bulunan durum çubuğunun (status bar) ikonlarının ve yazılarının rengini kontrol etmeye yarar.
+          systemOverlayStyle:
+              SystemUiOverlayStyle(statusBarBrightness: Brightness.dark)),
+
+      // **Dropdown Arka Planını Siyah Yap**
+      dropdownMenuTheme: DropdownMenuThemeData(
+        menuStyle: MenuStyle(
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12), // Kenarları yuvarlat
+            ),
+          ),
+        ),
+      ),
+//                style: Theme.of(context).textTheme.bodySmall,
+
+      // Uygulamanın genelinde geçerli olacak yazı stilleri
+      textTheme: const TextTheme(
+        // Büyük başlık (Örnek: '22°C' gibi)
+        headlineLarge: TextStyle(
+          fontSize: 55,
+          color: Colors.black,
+          fontWeight: FontWeight.w600,
+        ),
+        // Orta başlık (Örnek: 'THUNDERSTORM' gibi)
+        headlineMedium: TextStyle(
+          fontSize: 25,
+          color: Colors.black,
+          fontWeight: FontWeight.w500,
+        ),
+        // Alt başlık (Örnek: 'GoodMorning' gibi)
+        headlineSmall: TextStyle(
+          fontSize: 64,
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+        ),
+        // Açıklama metinleri (Örnek: 'Friday 16- 09.41am' gibi)
+        titleMedium: TextStyle(
+          fontSize: 16,
+          color: Colors.black,
+          fontWeight: FontWeight.w300,
+        ),
+        // Temel ince metin (Örnek: 'Aix-en-Provence' gibi)
+        bodyLarge: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.w300,
+        ),
+        // Temel kalın metin
+        bodyMedium: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.w700,
+        ),
+        // Küçük ek açıklama metinleri (Örnek: 'Sunrise', 'Sunset' vb.)
+        bodySmall: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.w300,
+        ),
       ),
     );
   }

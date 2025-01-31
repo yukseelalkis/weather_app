@@ -4,7 +4,7 @@ class ThemeToggleButton extends StatefulWidget {
   const ThemeToggleButton({
     super.key,
     required this.lottiePath,
-    this.size = 70.0,
+    this.size = 75.0,
   });
 
   final String lottiePath;
@@ -38,7 +38,7 @@ class _ThemeToggleButtonState extends State<ThemeToggleButton>
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        await controller.animateTo(!isLightTheme ? 0.5 : 1);
+        await controller.animateTo(isLightTheme ? 0.5 : 1);
         setState(() {
           isLightTheme = !isLightTheme;
         });

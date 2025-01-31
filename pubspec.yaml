@@ -20,6 +20,7 @@ dependencies:
   lottie: ^3.2.0
   dio: ^5.7.0
   mobx: ^2.5.0
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
@@ -32,4 +33,5 @@ flutter:
   assets:
     - assets/Icon/
     - assets/logo/
+    - assets/newIcon/
     - assets/lottie/

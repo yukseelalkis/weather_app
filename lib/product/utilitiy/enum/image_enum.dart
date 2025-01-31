@@ -13,3 +13,19 @@ enum ImagePath {
   snow,
   mist,
 }
+
+enum ImageNewIcon {
+  one,
+  two,
+  three,
+  four,
+  five,
+  six,
+  seven,
+  eight,
+  nine,
+  eleven,
+  twelve,
+  thirtenn,
+  fourteen
+}

@@ -20,12 +20,13 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
   final LigthTheme lightTheme = LigthTheme();
-  // This widget is the root of your application.
+  final CustomTheme customTheme = CustomTheme();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: context.watch<ThemeNotifer>().currentTheme,
+      //theme: CustomTheme().customLigthTheme,
       initialRoute: '/',
       routes: NavigatorRoutes().items,
       onGenerateRoute: onGenerateRoute,
@@ -33,3 +34,8 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+
+
+

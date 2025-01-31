@@ -5,7 +5,7 @@ import 'package:package_weather/product/utilitiy/app_style.dart/app_style.dart';
 import 'package:package_weather/feature/view/widget/icon_widget.dart';
 import 'package:package_weather/product/utilitiy/extension/weather_icon_extension.dart';
 
-part '../../../../part/weather_card_part_of.dart';
+part '../../../part/weather_card_part_of.dart';
 
 class WeatherCardWidget extends StatefulWidget {
   final String selectedCity;

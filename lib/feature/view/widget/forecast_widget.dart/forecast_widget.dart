@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:package_weather/feature/mixin/forecast_mixin.dart';
+import 'package:package_weather/feature/view/widget/drop_down_widget/drop_down_widget.dart';
+import 'package:package_weather/product/global/theme_notifider.dart';
 import 'package:package_weather/product/utilitiy/app_style.dart/app_style.dart';
 import 'package:package_weather/product/utilitiy/constants/padding/project_padding.dart';
 import 'package:package_weather/feature/view/widget/icon_widget.dart';
+import 'package:provider/provider.dart';
 
-part '../../../../part/forecast_part_of.dart';
+part '../../../part/forecast_part_of.dart';
 
 class ForeCastWidget extends StatefulWidget {
   final String selectedCity;
