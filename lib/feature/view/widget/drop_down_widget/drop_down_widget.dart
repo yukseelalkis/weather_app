@@ -18,9 +18,8 @@ class CitiesDropdownWidget extends StatefulWidget {
   State<CitiesDropdownWidget> createState() => _CitiesDropdownWidgetState();
 }
 
-class _CitiesDropdownWidgetState extends State<CitiesDropdownWidget>
-    with DropDownMixin {
-  String? _selectedCity = ProjectStringItems.baseCity;
+class _CitiesDropdownWidgetState extends State<CitiesDropdownWidget> with DropDownMixin {
+  final String _selectedCity = ProjectStringItems.baseCity;
 
   void closeDropdown() {
     setState(() {
@@ -40,7 +39,7 @@ class _CitiesDropdownWidgetState extends State<CitiesDropdownWidget>
             });
           },
           child: Padding(
-            padding: const  PagePadding.top4x(),
+            padding: const PagePadding.top4x(),
             child: _DropdownHeaderWidget(selectedCity: _selectedCity),
           ),
         ),
@@ -48,9 +47,6 @@ class _CitiesDropdownWidgetState extends State<CitiesDropdownWidget>
           _DropdownListWidget(
             cities: cities,
             onCitySelected: (selectedCity) {
-              setState(() {
-                _selectedCity = selectedCity;
-              });
               widget.onCitySelected(selectedCity);
             },
             closeDropdown: closeDropdown,
