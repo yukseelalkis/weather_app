@@ -1,169 +1,154 @@
-import 'dart:ui';
-import 'package:flutter/material.dart';
-import 'package:package_weather/feature/model/weather_forest_model.dart';
-import 'package:package_weather/feature/model/weather_model.dart';
-import 'package:package_weather/feature/view/weather_view.dart';
-import 'package:package_weather/feature/view/widget/drop_down_widget/drop_down_widget.dart';
-import 'package:package_weather/feature/view/widget/forecast_widget.dart/forecast_widget.dart';
-import 'package:package_weather/product/service/dio_network_manager.dart';
-import 'package:package_weather/product/service/weather_service.dart';
-import 'package:package_weather/product/utilitiy/app_style.dart/app_style.dart';
-import 'package:package_weather/product/utilitiy/constants/padding/project_padding.dart';
-import 'package:package_weather/product/utilitiy/enum/dio_manager_enum.dart';
-import 'package:package_weather/product/utilitiy/enum/network_manager_enum.dart';
-import 'package:intl/intl.dart';
+part of 'home_screen.dart';
 
-part 'home_screen.g.dart';
-
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  WeatherModel? weatherItem;
-  ForeCastModel? forecastItem;
-  late final IService service;
-  String selectedCity = "Ankara"; // Varsayılan şehir
-  static const String _LottieButtonPath =
-      'assets/lottie/lottie_theme_change.json';
-  static const String _SunrisePath = 'assets/newIcon/eleven.png';
-  static const String _Sunrise = 'Sunrise';
-  static const String _SunsetPath = 'assets/newIcon/twelve.png';
-  static const String _Sunset = 'Sunset';
-  static const String _Unknow = 'Bilinmiyor';
-  static const String _MaxTempPath = 'assets/newIcon/thirteen.png';
-  static const String _MaxTemp = 'Max Temp: ';
-  static const String _MinTemp = 'Min Temp';
-  static const String _MinTempPath = 'assets/newIcon/fourteen.png';
-
-  @override
-  void initState() {
-    super.initState();
-    final dio = DioManager().getService(DioManagerPath.weather.name);
-    service = ServiceWeather(dio);
-    fetchWeatherData(selectedCity);
-    fetchForeCastherData(selectedCity);
-  }
-
-  /// **Yeni şehir seçildiğinde burası çağrılacak**
-  void updateSelectedCity(String newCity) {
-    setState(() {
-      selectedCity = newCity;
-    });
-    fetchWeatherData(newCity);
-    fetchForeCastherData(newCity);
-  }
-
-  /// **Anlık hava durumunu API'den çek**
-  Future<void> fetchWeatherData(String city) async {
-    final item = await service.fetchData(
-      '${WeatherServicePath.weather.path}q=$city${WeatherServicePath.appid.path}',
-      (json) => WeatherModel.fromJson(json),
-    );
-    setState(() {
-      weatherItem = item;
-    });
-  }
-
-  /// **Hava durumu tahminlerini API'den çek**
-  Future<void> fetchForeCastherData(String city) async {
-    final item = await service.fetchData(
-      '${WeatherServicePath.forecast.path}q=$city&units=metric${WeatherServicePath.appid.path}',
-      (json) => ForeCastModel.fromJson(json),
-    );
-    setState(() {
-      forecastItem = item;
-    });
-  }
-
-  /// **Hava durumu koduna göre ikon getirme**
-  Widget getWeatherIcon(int code) {
-    if (code >= 200 && code < 300) {
-      return const NewIconWeather(iconCode: 'one');
-    } else if (code >= 300 && code < 400) {
-      return const NewIconWeather(iconCode: 'two');
-    } else if (code >= 500 && code < 600) {
-      return const NewIconWeather(iconCode: 'three');
-    } else if (code >= 600 && code < 700) {
-      return const NewIconWeather(iconCode: 'four');
-    } else if (code >= 700 && code < 800) {
-      return const NewIconWeather(iconCode: 'five');
-    } else if (code == 800) {
-      return const NewIconWeather(iconCode: 'six');
-    } else if (code > 800 && code <= 804) {
-      return const NewIconWeather(iconCode: 'seven');
-    } else {
-      return const NewIconWeather(iconCode: 'seven');
-    }
-  }
-
-  String formatTime(int timestamp) {
-    DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
-    return DateFormat('HH:mm').format(date);
-  }
-
-  String convertToCelsius(double kelvin) {
-    return (kelvin - 273.15).toStringAsFixed(1);
-  }
+class _Filter extends StatelessWidget {
+  const _Filter({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: Stack(
-            children: [
-              /// ARKA PLAN
-              const _RightContainer(),
-              const _LeftContainer(),
-              const _TopContainer(),
-              const _Filter(),
+    return BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 100.0, sigmaY: 100.0),
+      child: Container(),
+    );
+  }
+}
 
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      /// **Dropdown ve Hava Durumu Verileri**
-                      CitiesDropdownWidget(
-                        onCitySelected: updateSelectedCity,
-                      ),
+class _TopContainer extends StatelessWidget {
+  const _TopContainer({
+    super.key,
+  });
 
-                      /// * Thema degisikligi
-                      const Padding(
-                        padding: PagePadding.top4xRight(),
-                        child: ThemeToggleButton(lottiePath: _LottieButtonPath),
-                      ),
-                    ],
-                  ),
-                  WeatherInfoSection(weatherItem: weatherItem),
-                  WeatherForecastSection(weatherItem: weatherItem),
-                  ForecastListSection(forecastItem: forecastItem)
-                ],
-              ),
-            ],
-          ),
-        ),
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: const AlignmentDirectional(0, -1.2),
+      child: Container(
+        height: 300,
+        width: 300,
+        decoration: const BoxDecoration(color: Color(0xFFFFAB40)),
       ),
     );
   }
 }
 
-// color: context.watch<ThemeNotifer>().isLighTheme
-//             ? Colors.black
-//      
-//
-//
-//       : Colors.white,
+class _LeftContainer extends StatelessWidget {
+  const _LeftContainer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: const AlignmentDirectional(-4, -0.3),
+      child: Container(
+        height: 300,
+        width: 300,
+        decoration: const BoxDecoration(
+            shape: BoxShape.circle, color: Color(0xFF673AB7)),
+      ),
+    );
+  }
+}
+
+class _RightContainer extends StatelessWidget {
+  const _RightContainer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: const AlignmentDirectional(3, -0.3),
+      child: Container(
+        height: 300,
+        width: 300,
+        decoration: const BoxDecoration(
+            shape: BoxShape.circle, color: Colors.deepPurple),
+      ),
+    );
+  }
+}
+
+class NewIconWeather extends StatelessWidget {
+  final String iconCode; // OpenWeather'dan gelen "icon" kodu
+
+  const NewIconWeather({
+    super.key,
+    required this.iconCode,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: AppStyle.shadoeDecoration, // Gölge dekorasyonu
+      child: Image.asset(
+        'assets/newIcon/$iconCode.png',
+        scale: 3,
+      ),
+    );
+  }
+}
+
+/// **WeatherInfoRow**
+///
+/// Hava durumu bilgisini ikon ve metin formatında gösterir.
+///
+/// - `iconPath`: Gösterilecek hava durumu ikonunun yolu.
+/// - `title`: Bilgi başlığı (örneğin: "Sunrise", "Max Temp").
+/// - `value`: Gösterilecek değer (örneğin: "06:45", "24°C").
+///
+/// Kullanıcıya hava durumu detaylarını görsel ve metinsel olarak sunar.
+
+class WeatherInfoRow extends StatelessWidget {
+  final String iconPath;
+  final String title;
+  final String value;
+
+  const WeatherInfoRow({
+    super.key,
+    required this.iconPath,
+    required this.title,
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Image.asset(iconPath, scale: 8),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+              Text(
+                value,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
 
 ////WIDGETS
+
 ///
+////// **WeatherForecastSection**
 ///
-///Ortadaki widgets  min max sunrise sunset
+/// Gün doğumu, gün batımı, maksimum ve minimum sıcaklık bilgilerini gösterir.
+///
+/// - `weatherItem`: Güncel hava durumu verilerini içeren model.
+/// - Gün doğumu ve gün batımı saatlerini `formatTime` metodu ile gösterir.
+/// - Maksimum ve minimum sıcaklığı Celsius cinsine dönüştürmek için `convertToCelsius` metodunu kullanır.
+/// - Bilgi yoksa `_Unknow` değeri gösterilir.
+
 class WeatherForecastSection extends StatelessWidget {
   final WeatherModel? weatherItem;
 
@@ -239,6 +224,15 @@ class WeatherForecastSection extends StatelessWidget {
   }
 }
 
+/// **WeatherInfoSection**
+///
+/// Anlık hava durumu bilgisini ve hava durumu ikonunu gösterir.
+///
+/// - `weatherItem`: Güncel hava durumu verilerini içeren model.
+/// - Null olduğunda yükleme göstergesi (`CircularProgressIndicator`) görüntülenir.
+/// - Hava durumu ikonunu belirlemek için `getWeatherIcon` metodunu kullanır.
+/// - Sıcaklık değerini Celsius cinsine dönüştürmek için `convertToCelsius` metodunu kullanır.
+
 class WeatherInfoSection extends StatelessWidget {
   final WeatherModel? weatherItem;
 
@@ -286,6 +280,14 @@ class WeatherInfoSection extends StatelessWidget {
           );
   }
 }
+
+/// **ForecastListSection**
+///
+/// Hava tahmini verilerini yatay kaydırılabilir bir liste olarak gösterir.
+///
+/// - `forecastItem`: Hava tahmin verilerini içeren model.
+/// - Boş veya null olduğunda bir yükleme göstergesi (CircularProgressIndicator) görüntülenir.
+/// - İçerisindeki kartlar `ForecastCardWidget` ile oluşturulur.
 
 class ForecastListSection extends StatelessWidget {
   final ForeCastModel? forecastItem;
