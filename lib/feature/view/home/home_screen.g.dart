@@ -1,77 +1,64 @@
 part of 'home_screen.dart';
 
 class _Filter extends StatelessWidget {
-  const _Filter({
-    super.key,
-  });
+  const _Filter();
 
   @override
   Widget build(BuildContext context) {
     return BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: 100.0, sigmaY: 100.0),
+      filter: AppStyle.projectImageFilter,
       child: Container(),
     );
   }
 }
 
 class _TopContainer extends StatelessWidget {
-  const _TopContainer({
-    super.key,
-  });
+  const _TopContainer();
 
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: const AlignmentDirectional(0, -1.2),
       child: Container(
-        height: 300,
-        width: 300,
-        decoration: const BoxDecoration(color: Color(0xFFFFAB40)),
-      ),
+          height: AppStyle.backroundContainerSize,
+          width: AppStyle.backroundContainerSize,
+          decoration: AppStyle.backroundFirstColor),
     );
   }
 }
 
 class _LeftContainer extends StatelessWidget {
-  const _LeftContainer({
-    super.key,
-  });
+  const _LeftContainer();
 
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: const AlignmentDirectional(-4, -0.3),
       child: Container(
-        height: 300,
-        width: 300,
-        decoration: const BoxDecoration(
-            shape: BoxShape.circle, color: Color(0xFF673AB7)),
-      ),
+          height: AppStyle.backroundContainerSize,
+          width: AppStyle.backroundContainerSize,
+          decoration: AppStyle.backroundDarkColor),
     );
   }
 }
 
 class _RightContainer extends StatelessWidget {
-  const _RightContainer({
-    super.key,
-  });
+  const _RightContainer();
 
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: const AlignmentDirectional(3, -0.3),
+      alignment: AppStyle.aligmentGeometry,
       child: Container(
-        height: 300,
-        width: 300,
-        decoration: const BoxDecoration(
-            shape: BoxShape.circle, color: Colors.deepPurple),
-      ),
+          height: AppStyle.backroundContainerSize,
+          width: AppStyle.backroundContainerSize,
+          decoration: AppStyle.backroundDarkColor),
     );
   }
 }
 
 class NewIconWeather extends StatelessWidget {
-  final String iconCode; // OpenWeather'dan gelen "icon" kodu
+  final String iconCode;
 
   const NewIconWeather({
     super.key,
@@ -80,7 +67,7 @@ class NewIconWeather extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: AppStyle.shadoeDecoration, // Gölge dekorasyonu
+      decoration: AppStyle.shadoeDecoration,
       child: Image.asset(
         'assets/newIcon/$iconCode.png',
         scale: 3,
@@ -88,16 +75,6 @@ class NewIconWeather extends StatelessWidget {
     );
   }
 }
-
-/// **WeatherInfoRow**
-///
-/// Hava durumu bilgisini ikon ve metin formatında gösterir.
-///
-/// - `iconPath`: Gösterilecek hava durumu ikonunun yolu.
-/// - `title`: Bilgi başlığı (örneğin: "Sunrise", "Max Temp").
-/// - `value`: Gösterilecek değer (örneğin: "06:45", "24°C").
-///
-/// Kullanıcıya hava durumu detaylarını görsel ve metinsel olarak sunar.
 
 class WeatherInfoRow extends StatelessWidget {
   final String iconPath;
@@ -117,7 +94,7 @@ class WeatherInfoRow extends StatelessWidget {
       children: [
         Image.asset(iconPath, scale: 8),
         Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const PagePadding.home(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -149,50 +126,32 @@ class WeatherInfoRow extends StatelessWidget {
 /// - Maksimum ve minimum sıcaklığı Celsius cinsine dönüştürmek için `convertToCelsius` metodunu kullanır.
 /// - Bilgi yoksa `_Unknow` değeri gösterilir.
 
-class WeatherForecastSection extends StatelessWidget {
+class WeatherForecastSection extends StatelessWidget
+    with FormatTime, ConvertCelvin {
   final WeatherModel? weatherItem;
 
   const WeatherForecastSection({super.key, required this.weatherItem});
 
   @override
   Widget build(BuildContext context) {
-    const String _SunrisePath = 'assets/newIcon/eleven.png';
-    const String _Sunrise = 'Sunrise';
-    const String _SunsetPath = 'assets/newIcon/twelve.png';
-    const String _Sunset = 'Sunset';
-    const String _Unknow = 'Bilinmiyor';
-    const String _MaxTempPath = 'assets/newIcon/thirteen.png';
-    const String _MaxTemp = 'Max Temp: ';
-    const String _MinTemp = 'Min Temp';
-    const String _MinTempPath = 'assets/newIcon/fourteen.png';
-
-    String formatTime(int timestamp) {
-      DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
-      return DateFormat('HH:mm').format(date);
-    }
-
-    String convertToCelsius(double kelvin) {
-      return (kelvin - 273.15).toStringAsFixed(1);
-    }
-
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             WeatherInfoRow(
-              iconPath: _SunrisePath,
-              title: _Sunrise,
+              iconPath: ProjectStringItems.sunrisePath,
+              title: ProjectStringItems.sunrise,
               value: weatherItem?.sys?.sunrise != null
                   ? formatTime(weatherItem!.sys!.sunrise!)
-                  : _Unknow,
+                  : ProjectStringItems.unknow,
             ),
             WeatherInfoRow(
-              iconPath: _SunsetPath,
-              title: _Sunset,
+              iconPath: ProjectStringItems.sunsetPath,
+              title: ProjectStringItems.sunset,
               value: weatherItem?.sys?.sunset != null
                   ? formatTime(weatherItem!.sys!.sunset!)
-                  : _Unknow,
+                  : ProjectStringItems.unknow,
             ),
           ],
         ),
@@ -204,18 +163,18 @@ class WeatherForecastSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             WeatherInfoRow(
-              iconPath: _MaxTempPath,
-              title: _MaxTemp,
+              iconPath: ProjectStringItems.maxTempPath,
+              title: ProjectStringItems.maxTemp,
               value: weatherItem?.main?.tempMax != null
                   ? '${convertToCelsius(weatherItem!.main!.tempMax!)}°C'
-                  : _Unknow,
+                  : ProjectStringItems.unknow,
             ),
             WeatherInfoRow(
-              iconPath: _MinTempPath,
-              title: _MinTemp,
+              iconPath: ProjectStringItems.minTempPath,
+              title: ProjectStringItems.minTemp,
               value: weatherItem?.main?.tempMin != null
                   ? '${convertToCelsius(weatherItem!.main!.tempMin!)}°C'
-                  : _Unknow,
+                  : ProjectStringItems.unknow,
             ),
           ],
         ),
@@ -233,14 +192,10 @@ class WeatherForecastSection extends StatelessWidget {
 /// - Hava durumu ikonunu belirlemek için `getWeatherIcon` metodunu kullanır.
 /// - Sıcaklık değerini Celsius cinsine dönüştürmek için `convertToCelsius` metodunu kullanır.
 
-class WeatherInfoSection extends StatelessWidget {
+class WeatherInfoSection extends StatelessWidget with ConvertCelvin {
   final WeatherModel? weatherItem;
 
   const WeatherInfoSection({super.key, required this.weatherItem});
-
-  String convertToCelsius(double kelvin) {
-    return (kelvin - 273.15).toStringAsFixed(1);
-  }
 
   Widget getWeatherIcon(int code) {
     if (code >= 200 && code < 300) {
@@ -289,15 +244,10 @@ class WeatherInfoSection extends StatelessWidget {
 /// - Boş veya null olduğunda bir yükleme göstergesi (CircularProgressIndicator) görüntülenir.
 /// - İçerisindeki kartlar `ForecastCardWidget` ile oluşturulur.
 
-class ForecastListSection extends StatelessWidget {
+class ForecastListSection extends StatelessWidget with FormatTime {
   final ForeCastModel? forecastItem;
 
   const ForecastListSection({super.key, required this.forecastItem});
-
-  String formatTime(int timestamp) {
-    DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
-    return DateFormat('HH:mm').format(date);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -324,5 +274,26 @@ class ForecastListSection extends StatelessWidget {
               ),
             ),
           );
+  }
+}
+
+mixin FormatTime {
+  /// Verilen Unix zaman damgasını 'HH:mm' formatına çevirir.
+  ///
+  /// [timestamp]: Saniye cinsinden Unix zaman damgası.
+  /// Dönen değer: Saat ve dakika bilgisini içeren bir `String`.
+  String formatTime(int timestamp) {
+    DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    return DateFormat('HH:mm').format(date);
+  }
+}
+
+mixin ConvertCelvin {
+  /// Kelvin cinsinden verilen sıcaklığı Celsius'a çevirir.
+  ///
+  /// [kelvin]: Kelvin cinsinden sıcaklık değeri.
+  /// Dönen değer: Ondalık hassasiyetli Celsius sıcaklık değeri (`String`).
+  String convertToCelsius(double kelvin) {
+    return (kelvin - 273.15).toStringAsFixed(1);
   }
 }

@@ -1,7 +1,7 @@
 part of '../view/widget/drop_down_widget/drop_down_widget.dart';
 
 class _DropdownHeaderWidget extends StatelessWidget {
-  _DropdownHeaderWidget({
+  const _DropdownHeaderWidget({
     required this.selectedCity,
   });
 

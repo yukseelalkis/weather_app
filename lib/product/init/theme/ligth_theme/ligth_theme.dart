@@ -132,7 +132,7 @@ class CustomTheme {
       // **Dropdown Arka Planını Siyah Yap**
       dropdownMenuTheme: DropdownMenuThemeData(
         menuStyle: MenuStyle(
-          shape: MaterialStateProperty.all(
+          shape: WidgetStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12), // Kenarları yuvarlat
             ),
@@ -199,7 +199,7 @@ class CustomTheme {
       // **Dropdown Arka Planını Siyah Yap**
       dropdownMenuTheme: DropdownMenuThemeData(
         menuStyle: MenuStyle(
-          shape: MaterialStateProperty.all(
+          shape: WidgetStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12), // Kenarları yuvarlat
             ),

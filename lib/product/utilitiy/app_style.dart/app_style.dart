@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:package_weather/product/init/theme/project_color/color_items.dart';
 
@@ -17,7 +19,17 @@ class AppStyle with ProjectItemColors {
   static const double projectIconWeatherWidth = 150;
   static const double projectIconWeatherHeigth = 100;
   static const double dropdownContainer = 250;
+  static const double backroundContainerSize = 300;
   static const Offset projectOffSet = Offset(2, 2);
+  static final ImageFilter projectImageFilter =
+      ImageFilter.blur(sigmaX: 100.0, sigmaY: 100.0);
+  static const AlignmentGeometry aligmentGeometry =
+      AlignmentDirectional(3, -0.3);
+
+  static const BoxDecoration backroundFirstColor =
+      BoxDecoration(color: Color(0xFFFFAB40));
+  static const BoxDecoration backroundDarkColor =
+       BoxDecoration(shape: BoxShape.circle, color: Color(0xFF673AB7));
   static BorderRadius borderRadius =
       BorderRadius.circular(projectBorderCircular);
 

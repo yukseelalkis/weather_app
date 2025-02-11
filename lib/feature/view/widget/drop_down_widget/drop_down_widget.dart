@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:package_weather/feature/mixin/drop_down_mixin.dart';
 import 'package:package_weather/feature/model/cities_model.dart';
-import 'package:package_weather/feature/view/weather_view.dart';
 import 'package:package_weather/product/global/theme_notifider.dart';
 import 'package:package_weather/product/init/theme/project_color/color_items.dart';
 import 'package:package_weather/product/utilitiy/app_style.dart/app_style.dart';

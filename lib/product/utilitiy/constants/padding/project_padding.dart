@@ -14,4 +14,5 @@ class PagePadding extends EdgeInsets {
   const PagePadding.onlyVertical() : super.symmetric(vertical: 8);
   const PagePadding.all2x() : super.all(40);
   const PagePadding.custom() : super.only(left: 40);
+  const PagePadding.home() : super.all(16.0);
 }
