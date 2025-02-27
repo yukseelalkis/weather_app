@@ -27,11 +27,15 @@ Bu proje ile aşağıdaki konular üzerine deneyim kazanmak hedeflenmiştir:
 ✅ **Dio kütüphanesi ile HTTP istekleri yapmak**  
 ✅ **Hata yönetimi ve performans optimizasyonu sağlamak**  
 
+## 📸 Ekran Görüntüleri
+
 
 
 ![image](https://github.com/user-attachments/assets/18385656-4802-4334-b723-b405a928067e)
 ![image](https://github.com/user-attachments/assets/f87e3f0f-5f21-4962-b31c-cce6ddf9c3b1)
 ![image](https://github.com/user-attachments/assets/1f9c4d8e-9f9b-4ad1-bdf6-9cdd748e6594)
+
+
 
 
 ## 📌 Not
